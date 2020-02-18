@@ -1,0 +1,201 @@
+<html>
+
+<head>
+    <title>Chandrakant Bharatkumar Thakkar</title>
+</head>
+
+<body>
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <div id="chart" style="width: 800;height: 500">
+    </div>
+    <script>
+        $("#chart").empty();
+
+        var mainDiv = "#chart";
+        var xAxis = "xaxis";
+        var mainDivName = mainDiv.substr(1, mainDiv.length);
+        d3.select(mainDiv).append("svg").attr("width", $(mainDiv).width()).attr("height", $(mainDiv).height());
+        var svg = d3.select(mainDiv + " svg"),
+            margin = {
+                top: 20,
+                right: 20,
+                bottom: 30,
+                left: 40
+            },
+            width = +svg.attr("width") - margin.left - margin.right,
+            height = +svg.attr("height") - margin.top - margin.bottom;
+
+        var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var data = [{
+            xaxis: 1
+        }, {
+            xaxis: 2
+        }, {
+            xaxis: 3
+        }, {
+            xaxis: 4
+        }, {
+            xaxis: 5
+        }, {
+            xaxis: 6
+        }, {
+            xaxis: 7
+        }, {
+            xaxis: 8
+        }, {
+            xaxis: 9
+        }, {
+            xaxis: 10
+        }];
+        var x0 = d3.scaleBand()
+            .rangeRound([0, width])
+            .paddingInner(0.1);
+        x0.domain(data.map(function(d) {
+            return d[xAxis];
+        }));
+        var distance = 80;
+        var ypoint = height;
+        g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + ypoint + ")")
+            .call(d3.axisBottom(x0))
+            .append("text")
+            .attr("x", width / 2)
+            .attr("y", margin.bottom * 0.9)
+            .attr("dx", "0.32em")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .text("Simple Number Format");
+        ypoint = ypoint - distance;
+        g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + ypoint + ")")
+            .call(d3.axisBottom(x0).tickFormat(d3.format(".2f")))
+            .append("text")
+            .attr("x", width / 2)
+            .attr("y", margin.bottom * 0.9)
+            .attr("dx", "0.32em")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .text("Floating Number Format");
+
+        data.forEach(function(d) {
+            d.xaxis = d.xaxis * 1000;
+        });
+        x0.domain(data.map(function(d) {
+            return d[xAxis];
+        }));
+        ypoint = ypoint - distance;
+        g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + ypoint + ")")
+            .call(d3.axisBottom(x0).tickFormat(d3.format(".0s")))
+            .append("text")
+            .attr("x", width / 2)
+            .attr("y", margin.bottom * 0.9)
+            .attr("dx", "0.32em")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .text("SI Format");
+
+        var data = [{
+            xaxis: "1-jul-17"
+        }, {
+            xaxis: "2-jul-17"
+        }, {
+            xaxis: "3-jul-17"
+        }, {
+            xaxis: "4-jul-17"
+        }, {
+            xaxis: "5-jul-17"
+        }, {
+            xaxis: "6-jul-17"
+        }, {
+            xaxis: "7-jul-17"
+        }, {
+            xaxis: "8-jul-17"
+        }, {
+            xaxis: "9-jul-17"
+        }, {
+            xaxis: "10-jul-17"
+        }];
+        var parseTime = d3.timeParse("%d-%b-%y");
+        data.forEach(function(d) {
+            d.xaxis = parseTime(d.xaxis);
+        });
+        x0 = d3.scaleTime().range([0, width]);
+        x0.domain(d3.extent(data, function(d) {
+            return d[xAxis]
+        }));
+        ypoint = ypoint - distance;
+        g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + ypoint + ")")
+            .call(d3.axisBottom(x0).tickFormat(d3.timeFormat("%a %d")))
+            .append("text")
+            .attr("x", width / 2)
+            .attr("y", margin.bottom * 0.9)
+            .attr("dx", "0.32em")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .text("Day Date Format");
+        ypoint = ypoint - distance;
+        g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + ypoint + ")")
+            .call(d3.axisBottom(x0).tickFormat(d3.timeFormat("%Y-%m-%d")))
+            .append("text")
+            .attr("x", width / 2)
+            .attr("y", margin.bottom * 0.9)
+            .attr("dx", "0.32em")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .text("YYYY-MM-DD Format");
+        ypoint = ypoint - distance;
+        g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + ypoint + ")")
+            .call(d3.axisBottom(x0).ticks(10).tickFormat(d3.timeFormat("%y-%b-%d")))
+            .append("text")
+            .attr("x", width / 2)
+            .attr("y", margin.bottom * 0.9)
+            .attr("dx", "0.32em")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .text("YY-MON-DD Format");
+    </script>
+
+<!-- LICENSE#
+MIT License
+
+Copyright (c) [2017] [Chandrakant Thakkar]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. -->
+</body>
+
+</html>

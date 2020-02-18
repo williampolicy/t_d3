@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style type="text/css">
+            div.bar {
+                display: inline-block;
+                width: 20px;
+                height: 75px;   /* We'll override this later */
+                background-color: teal;
+                margin-right: 5px;
+    </style>
+
+
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+
+        <!-- src="https://d3js.org/d3.v4.min.js" -->
+    </head>
+    <body>
+        <script type="text/javascript">
+            // Your beautiful D3 code will go here
+            // d3.select("body").append("p").text("append to body, with word,first p");
+
+            var dataset = [ 99, 10, 15, 20, 25, 1, 2 , 3 , 4, 5 , 3, 2, 1, 2, 3];
+
+            // d3.select("body").selectAll("p")
+            // .data(dataset)
+            // .enter()
+            // .append("p")
+            // .style("color", function(d) {
+            //                             if (d > 15) {   //Threshold of 15
+            //                                             return "red";
+            //                                         } 
+            //                              else       {
+            //                                             return "black";
+            //                                         }
+            //                             })
+            // .text(function(d) {
+            //                      return "Grace Kang can count up to " + d;
+            //                   });
+
+
+            // .text("New paragraph!");
+            // .style("color", "red")
+            // .text("I try to say d in text"+d);  without wrapping `d` in an anonymous function, `d` has no value. 
+        
+            
+            // .text(function(d) { return d; });
+
+
+
+            // function(d)     {
+            //                 return d;
+            //                 }
+
+            // function(input_value) {
+            //                         //Calculate something here
+            //                         return output_value;
+            //                         }
+
+
+
+            d3.select("body").selectAll("div")
+                .data(dataset)
+                .enter()
+                .append("div")
+                .attr("class", "bar")
+                // .style("height", function(d) {
+                //                                     return d + "px";
+                //                                 });
+
+                .style("height", function(d) {
+                                                var barHeight = d * 2;  //Scale up by factor of 5
+                                                    return barHeight + "px";
+                                            });
+
+
+                // .style("height", function(d) {
+                //                             return d + "px";
+                //                             });
+
+
+        </script>
+
+<!--         <div style="display: inline-block;
+            width: 20px;
+            height: 75px;
+            background-color: teal;"></div> -->
+
+            <!-- <div style="height: 75px;"></div>  -->
+            <!-- <div style="height: 75px;"></div> -->
+
+
+            <!-- <div class="bar"></div> -->
+
+
+
+
+    </body>
+</html>
